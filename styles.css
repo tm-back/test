@@ -1,0 +1,1103 @@
+/* Website: visienco.ch (owner-provided) */
+/* Visienco-style skeleton — neutral, commented CSS to help you understand structure */
+:root{
+  --text:#0f172a; --muted:#475569; --bg:#ffffff; --bg-soft:#F5F5F0; --primary:#00BFB8; --border:#e2e8f0; --card:#ffffff;
+  --hero-height:68vh; --overlay:0.65; /* Increased overlay for darker tint */
+  /* Modern light gray that pairs well with turquoise */
+  --card-soft: #F4F7F6;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  /* Prioritize Segoe UI as requested, keeping Inter and others as backups */
+  font-family: 'Segoe UI', Inter, system-ui, -apple-system, Roboto, Ubuntu, 'Helvetica Neue', Arial, sans-serif;
+  color:var(--text);
+  background:var(--bg)
+}
+.container{max-width:1200px;margin:0 auto;padding:0 1.25rem}
+.site-header{
+
+  position: sticky;
+  top: 0;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  z-index: 1000;
+}
+
+.nav{
+  display: flex;
+  align-items: center;           /* vertical align logo + links */
+  justify-content: space-between;
+  padding: .75rem 0;
+}
+
+/* Mobile Nav Toggle (Hidden by default) */
+.mobile-nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1001;
+}
+
+.hamburger {
+  display: block;
+  position: relative;
+  width: 24px;
+  height: 2px;
+  background: var(--text);
+  transition: all 0.3s ease-in-out;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background: var(--text);
+  left: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.hamburger::before { top: -8px; }
+.hamburger::after { top: 8px; }
+
+/* Hamburger Animation when Active */
+.mobile-nav-toggle[aria-expanded="true"] .hamburger {
+  background: transparent;
+}
+.mobile-nav-toggle[aria-expanded="true"] .hamburger::before {
+  transform: rotate(45deg);
+  top: 0;
+}
+.mobile-nav-toggle[aria-expanded="true"] .hamburger::after {
+  transform: rotate(-45deg);
+  top: 0;
+}
+
+.logo img{
+  display: block;
+  height: 36px;
+  width: auto;
+}
+
+/* One line list of links */
+.nav-links{
+  list-style: none;
+  display: flex;                 /* put all items on one line */
+  align-items: center;           /* vertically center items */
+  gap: 1rem;                     /* space between items */
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a{
+  color: var(--text);
+  text-decoration: none;
+  padding: .5rem .75rem;
+  border-radius: .5rem;
+  line-height: 1;                /* keep consistent height */
+}
+
+/* Navigation Media Query for Mobile */
+@media (max-width: 768px) {
+  .mobile-nav-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 60px; /* Adjust based on header height */
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--border);
+    transform: translateY(-150%);
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    overflow-y: auto; /* Allow scrolling if menu is tall */
+    max-height: 80vh; /* Prevent it from getting stuck under address bar */
+  }
+
+  .nav-links.active {
+    transform: translateY(0);
+  }
+  
+  /* Ensure header stays on top */
+  .site-header {
+    position: sticky; /* Make sure it's sticky logic works with the fixed menu */
+  }
+}
+
+/* Hover/focus state for normal links */
+.nav-links a:hover,
+.nav-links a:focus{
+  background: #eef2ff;
+}
+
+/* Make "Contact" button same height as others, but still prominent */
+.nav-links .btn.primary{
+  background: var(--primary);
+  color: #fff;
+  border-color: transparent;
+  padding: .5rem .90rem;         /* match height to other links */
+  border-radius: .5rem;
+  line-height: normal; /* Fix vertical alignment if affected by 1 */
+}
+
+/* Optional: unify font-weight across nav items */
+.nav-links a,
+.nav-links .btn{
+  font-weight: 600;
+}
+
+/* Global button style */
+.btn { display:inline-flex; align-items:center; justify-content:center; height:40px; padding:0 14px; border-radius:.5rem; border:1px solid var(--border); background:#fff; color:var(--text); text-decoration:none; white-space:nowrap; line-height:1; box-sizing:border-box; transition: all 0.2s ease; cursor: pointer; }
+.btn.primary{background:#00BFB8;color:#fff;border-color:transparent; border-radius: 0.5rem; padding: 0.75rem 20px; font-size: 1.125rem; font-weight: 600;  line-height: 1.4;}
+.btn.secondary{background:#eef2ff}
+
+/* Button hover effects */
+.btn:hover { transform: translateY(-1px); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+.btn:active { transform: translateY(0); }
+
+/* Arrow icon in buttons and its animation */
+.btn .btn-arrow { margin-left: 0.5rem; transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.btn:hover .btn-arrow { transform: translateX(6px) scale(1.1); }
+
+.hero{position:relative;width:100%;height:var(--hero-height);overflow:hidden}
+.hero img{width:100%;height:100%;object-fit:cover}
+.hero .overlay{position:absolute;inset:0;background:rgba(0,0,0,var(--overlay));pointer-events:none}
+.hero .caption{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:1rem}
+.hero .caption h1{color:#fff;font-size:clamp(1.8rem,4vw,3.2rem);margin:0 0 .75rem}
+.hero .caption p{color:#e2e8f0}
+.hero .cta-group{display:inline-flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-top:1rem}
+.hero .btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 16px;line-height:1;font-weight:600;border-radius:.5rem}
+.hero .btn .icon{width:20px;height:20px;vertical-align:middle;margin-right:.5rem;flex:0 0 auto}
+.hero .caption .container{max-width:1000px;margin:0 auto;padding:0 1.25rem}
+.section{padding:2.5rem 0}
+.card{background:var(--card);border:1px solid rgba(0,0,0,0);border-radius:1rem;padding:1.25rem}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;align-items:center}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.feature-list{display:grid;gap:.5rem;padding-left:1rem}
+/* Footer Section */
+.site-footer{background:#fff;padding:3rem 0;border-top:1px solid var(--border);margin-top:auto;}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+  align-items: center; /* Vertically center items */
+}
+
+.footer-left {
+  text-align: left;
+}
+
+.footer-address {
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.footer-contact {
+  display: flex;
+  flex-direction: column; /* Stack email and social icon vertically */
+  align-items: flex-end; /* Align to the right */
+  gap: 0.75rem;
+}
+
+.footer-email {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.footer-email:hover {
+  color: var(--primary);
+}
+
+/* Ensure the text stays aligned with the larger icon */
+.footer-email {
+    font-size: 1.25rem; 
+}
+
+/* Target all text in footer to be black, normal weight, same size */
+.site-footer p, 
+.site-footer a, 
+.site-footer span,
+.footer-address {
+    color: #000;
+    font-weight: 400;
+    text-decoration: none;
+    font-size: 0.95rem; /* Unified font size */
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Specific styling for copyright/year to match */
+.footer-left p {
+    margin-bottom: 0.5rem;
+}
+
+/* Links container */
+.footer-links {
+    display:flex; 
+    gap:1rem;
+}
+
+.footer-links a:hover {
+    text-decoration: none; /* Explicitly no underline even on hover if desired, or 'underline' if preferred */
+    opacity: 0.7; /* Optional hover effect since they are just black text */
+}
+
+.footer-left {flex: 1;min-width: 250px;}
+
+.footer-address {flex: 1;min-width: 200px;}
+
+.footer-contact {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Align contact info to right on large screens */
+    gap: 0.75rem;
+}
+
+/* Exception: Email link keeps primary color and bold weight */
+.footer-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary) !important; /* Force primary color */
+    text-decoration: none;
+    font-weight: 600 !important; /* Force bold */
+}
+.footer-email:hover { text-decoration: underline !important; }
+
+.social-icon img {
+    display: block;
+    transition: transform 0.2s;
+}
+.social-icon:hover img {
+    transform: scale(1.1);
+}
+
+.contact-block{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.icon{width:20px;height:20px;vertical-align:middle;margin-right:.5rem}
+@media(max-width:900px){.grid-2{grid-template-columns:1fr}
+    .footer-grid { 
+      display: flex;
+      flex-direction: column; 
+      align-items: flex-start; 
+      gap: 2rem;
+    }
+    .footer-contact { align-items: flex-start; } /* Reset alignment on mobile */
+    
+    .footer-left, .footer-address, .footer-contact {
+        width: 100%;
+        text-align: left;
+        min-width: auto;
+    }
+    
+    .footer-address { text-align: left; }
+    
+    .footer-contact {
+        align-items: flex-start;
+    }
+}
+
+/* Page Titles (Non-Hero) */
+.page-title {
+   font-size: clamp(2rem, 5vw, 2.5rem);
+   margin-bottom: 2rem;
+   text-align: left;
+   font-weight: 700;
+}
+
+/* Hero container remains the same */
+.hero { position:relative; width:100%; height:var(--hero-height); overflow:hidden; }
+
+/* Make the video behave like a background image */
+.hero-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+
+/* Overlay sits above video for contrast */
+.hero .overlay { position:absolute; inset:0; background:rgba(0,0,0,var(--overlay)); z-index:1; }
+
+/* Caption on top of overlay + video */
+.hero .caption { position:absolute; inset:0; display:grid; place-items:center; text-align:center; padding:1rem; z-index:2; }
+
+/* Apply Segoe UI specifically to headers as requested */
+h1, h2, h3, h4, h5, h6, .section-title h2 {
+  font-family: 'Segoe UI', Inter, system-ui, -apple-system, Roboto, Ubuntu, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Cleaner, harmonious typography for product/benefit block headers */
+.orgadroid-block h2,
+.benefit-block h3 {
+  font-size: clamp(1.4rem, 2vw, 1.6rem); /* Slightly smaller, more refined size */
+  font-weight: 600; 
+  margin-bottom: 0.75rem; 
+  color: var(--text);
+  letter-spacing: -0.01em; /* Tights letter spacing for a modern look */
+  line-height: 1.3;
+}
+
+/* Cleaner paragraphs with better readability */
+.orgadroid-block p,
+.benefit-block p {
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  line-height: 1.7; /* Increased line-height for easier reading (was 1.6 or implicit) */
+  color: var(--muted);
+  max-width: 65ch; /* Optimal line length for readability */
+}
+
+/* Remove old specific selectors if they exist to avoid conflict - consolidated above */
+/* .orgadroid-block h2 {font-size: clamp(1.5rem, 2.5vw, 1.8rem); font-weight: 600; margin-bottom: 1rem;color: var(--text);} */
+/* .orgadroid-block p {font-size: clamp(1rem, 2.2vw, 1.25rem); line-height: 1.6; color: var(--muted);} */
+
+.section-title {display: flex;align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+
+/* Default: section titles on white backgrounds should be black */
+.section-title h2 {font-size: clamp(1.8rem, 3.2vw, 2.4rem);font-weight: 700; margin: 0;color: var(--text);}
+
+/* Keep turquoise icon next to the title (SVG/IMG is already turquoise asset) */
+.section-title .section-icon {width: auto;  height: clamp(1.8rem, 3.2vw, 2.4rem);display: inline-block;}
+
+/* Dark sections override title color (e.g., workflow) */
+.workflow-section .section-title h2 { color: #fff; }
+
+.workflow-section {
+  background-color: #212B46; /* Dark blue background */
+  color: #fff;
+  padding: 4rem 0;
+  margin-top: 3rem;
+  width: 100vw; /* span full viewport width */
+  margin-left: calc(50% - 50vw); /* pull to left edge from centered container */
+  margin-right: calc(50% - 50vw); /* pull to right edge */
+}
+
+.workflow-section .section-title {
+  display: flex;
+  align-items: center; /* vertically center icon + text */
+  gap: 0.5rem;
+  padding: 0 1.25rem; /* horizontal padding to match container gutters */
+}
+
+.workflow-section .section-title .section-icon {
+  height: 2rem; /* fix icon height for consistent alignment */
+  width: auto;
+}
+
+.workflow-section .section-title h2 {
+  color: #fff;
+  margin: 0;
+  line-height: 1.1; /* tighten line-height to align with icon */
+}
+
+.workflow-section .workflow-grid {
+  max-width: 900px;
+}
+
+.workflow-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 columns for 2x2 layout */
+  gap: 6rem 8rem; /* INCREASED: Vertical gap 6rem, Horizontal gap 8rem for more breathing room */
+  max-width: 1000px; /* INCREASED: wider max-width to accommodate larger gaps */
+  margin: 0 auto;
+  position: relative; /* Context for absolute arrows overlay if needed, though grid gap works better */
+}
+
+/* Force specific step positioning for 2x2 layout */
+.workflow-step.step-1 { grid-column: 1; grid-row: 1; }
+.workflow-step.step-2 { grid-column: 2; grid-row: 1; }
+.workflow-step.step-3 { grid-column: 2; grid-row: 2; }
+.workflow-step.step-4 { grid-column: 1; grid-row: 2; }
+
+/* Remove rectangular bars and use directional triangles for arrows */
+.workflow-grid::before,
+.workflow-grid::after,
+.workflow-step.step-3::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  background: transparent;
+}
+
+/* Triangle 1: Step 1 -> Step 2 (Right) */
+.workflow-grid::before {
+  top: 25%; /* Adjusted vertical alignment */
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centered horizontally between columns */
+  border-width: 20px 0 20px 35px; /* INCREASED: Larger arrow size */
+  border-color: transparent transparent transparent var(--primary); /* CHANGED: Turquoise color */
+  z-index: 10;
+}
+
+/* Triangle 2: Step 2 -> Step 3 (Down) */
+.workflow-grid::after {
+  top: 50%;
+  right: 25%; /* Centered vertically between rows */
+  transform: translate(50%, -50%);
+  border-width: 35px 20px 0 20px; /* INCREASED: Larger arrow size */
+  border-color: var(--primary) transparent transparent transparent; /* CHANGED: Turquoise color */
+  z-index: 10;
+}
+
+/* Triangle 3: Step 3 -> Step 4 (Left) */
+.workflow-step.step-3::before {
+  top: 40%;
+  left: -4rem; /* Adjusted horizontal position for wider gap */
+  transform: translateX(-50%);
+  border-width: 20px 35px 20px 0; /* INCREASED: Larger arrow size */
+  border-color: transparent var(--primary) transparent transparent; /* CHANGED: Turquoise color */
+  z-index: 10;
+}
+
+.workflow-image-wrapper {
+  background-color: #212B46; /* Matches section bg */
+  border-radius: 1rem;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 4/3; /* Standard layout ratio */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Optional: border to define the area if images are perfectly seamless, 
+     but user wants seamless look so maybe no border */
+}
+
+.workflow-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  
+  /* The Magic: Invert colors + Blend Mode */
+  filter: invert(1) contrast(1.1); /* Black->White, White->Black. Boost contrast slightly */
+  mix-blend-mode: lighten; /* Black background becomes transparent against dark blue #212B46 */
+}
+
+/* Specific override for Step 3 image size as requested - kept */
+.workflow-step:nth-child(3) .workflow-img {
+  transform: scale(1.3); 
+}
+
+.workflow-content h3 {
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+}
+
+.workflow-content p {
+  color: #cbd5e1; /* Light gray text for readability against dark bg */
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Substep spacing */
+.workflow-substep {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Workflow Step container */
+.workflow-step {
+  position: relative;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .product-layout-grid {
+    grid-template-columns: 1fr; /* Stack vertically on tablet/mobile */
+  }
+  .product-layout-grid .feature-grid {
+     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Return to auto-fit */
+  }
+  .product-image-container {
+    order: -1; /* Show image before features on mobile/tablet */
+    margin-bottom: 2rem;
+  }
+  .sticky-image {
+    position: static;
+  }
+  .product-image {
+     max-width: 300px;
+  }
+  .workflow-grid {
+    grid-template-columns: 1fr; /* Stack workflow steps on mobile */
+    gap: 4rem; 
+    max-width: 600px;
+  }
+  
+  /* Reset grid placement for mobile stack */
+  .workflow-step.step-1,
+  .workflow-step.step-2,
+  .workflow-step.step-3, 
+  .workflow-step.step-4 {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  
+  /* Hide desktop arrows */
+  .workflow-grid::before, .workflow-grid::after, .workflow-step.step-3::before {
+    display: none;
+  }
+  
+  /* Add simple downward triangles for mobile stack */
+  .workflow-step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    bottom: -3rem; /* Center in gap */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; 
+    height: 0; 
+    border-style: solid;
+    border-width: 25px 15px 0 15px; /* Slightly larger on mobile too */
+    border-color: var(--primary) transparent transparent transparent; /* Turquoise here too */
+  }
+  
+  .workflow-image-wrapper {
+    aspect-ratio: 16/9; /* Wider on mobile */
+  }
+}
+
+/* Main page product rectangle (Orgadroid block) */
+.grid-2.card.orgadroid-block,
+.orgadroid-block.card {
+  background: var(--card-soft) !important; /* override inline bg-soft */
+}
+
+/* Ensure text over these cards is black for contrast */
+.orgadroid-block h2,
+.orgadroid-block p,
+.feature-card h3,
+.feature-card p,
+.feature-card li {
+  color: var(--text);
+}
+
+/* Partners Grid - Horizontal Row Style */
+.partners-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap; /* Prevent wrapping essentially to look like a strip */
+  justify-content: space-between; /* Distribute evenly */
+  align-items: center;
+  gap: 1.5rem; /* Reduced gap to help fitting */
+  padding: 2rem 0; /* Reduced vertical padding */
+  overflow-x: hidden; /* Hide scrollbar, rely on shrinking */
+  
+  /* Remove border and background to make it look clean */
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Partner Logo Settings */
+.partners-grid img {
+  height: 48px; /* Reduced height significantly for strip look */
+  width: auto;
+  max-width: 120px; /* Restrict max width */
+  object-fit: contain;
+  
+  /* Black and White Filter */
+  filter: grayscale(100%) opacity(1);
+  transition: all 0.3s ease;
+  flex-shrink: 1; /* Allow logos to shrink to fit the line */
+}
+
+/* Mobile Adjustments for Partners */
+@media (max-width: 768px) {
+  .partners-grid {
+    flex-wrap: wrap; /* Allow wrapping on mobile if they really don't fit */
+    justify-content: center; /* Center them when wrapped */
+    gap: 1rem;
+    overflow-x: visible;
+  }
+  
+  .partners-grid img {
+    height: 32px; /* Even smaller on mobile */
+    max-width: 100px;
+    flex-shrink: 0; /* Don't shrink too much on mobile, wrap instead */
+  }
+}
+
+/* Product video sizing: constrain width and height */
+.product-video-wrapper {
+  width: 100%;
+  max-width: 900px; /* slightly wider container, still constrained */
+}
+
+.product-video {
+  width: 100%;
+  max-width: 800px;      /* hard cap on width */
+  aspect-ratio: 16/9;    /* keep a standard video ratio */
+  max-height: 60vh;      /* prevent exceeding viewport height */
+}
+
+/* Ensure wrapper centers the video and prevents overflow */
+.product-video-wrapper { 
+  margin: 0 auto 3rem auto; 
+  overflow: hidden; 
+}
+
+/* FEATURES GRID & WORKFLOW CLEANUP
+   ========================================================================== */
+
+/* Remove any duplicate/conflicting feature card rules below */
+
+/* 1. Feature Grid Container */
+.feature-grid.three-col-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px; /* Clean spacing */
+  align-items: stretch; /* Cards same height */
+}
+
+@media (max-width: 900px) {
+  .feature-grid.three-col-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .feature-grid.three-col-grid { grid-template-columns: 1fr; }
+}
+
+/* 2. Feature Card Base Style */
+.feature-card {
+  background: var(--card-soft);
+  border-radius: 12px;
+  padding: 24px; /* Increased slightly for better breathability */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle depth */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  
+  /* Content Alignment: Centered */
+  align-items: center;  /* Centered Items */
+  text-align: center;   /* Centered Text */
+  gap: 16px; /* Consistent vertical rhythm */
+}
+
+/* 3. Feature Header (Title) - Centered as requested */
+.feature-card .feature-header {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centered */
+  width: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+.feature-card h3 {
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* 4. Feature Icon Wrapper - Centered as requested */
+.feature-card .feature-icon-display {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centered */
+  width: 100%; /* Full width to hold position */
+  margin: 0; /* Handled by parent gap */
+}
+
+/* Icon Sizing */
+.feature-card .feature-icon,
+.feature-card svg.feature-icon {
+  width: 64px; /* Standardized clean size */
+  height: 64px;
+  object-fit: contain;
+}
+/* Large variant if needed, but keeping standard is cleaner for homogeneity */
+.feature-card .feature-icon.lg,
+.feature-card svg.feature-icon.lg {
+  width: 72px;
+  height: 72px;
+}
+
+/* 5. Feature Body (List & Text) */
+.feature-card ul,
+.feature-card p {
+  width: 100%;
+  margin: 0;
+  padding-left: 0; /* Removed bullet indentation */
+  list-style: none; /* Removed bullets */
+}
+.feature-card p { padding-left: 0; }
+
+/* 6. Special Case: Orgadroid Image Card */
+.feature-card.feature-card--image {
+  /* Inherits background & shadow from .feature-card */
+  /* We KEEP padding to frame the image nicely like content */
+  align-items: center;     /* Center the image horizontally */
+  justify-content: center; /* Center the image vertically */
+  padding: 24px;           /* Consistent with other cards */
+  overflow: hidden;
+}
+
+/* Ensure the image fits nicely within the padded area */
+.feature-card.feature-card--image .feature-image {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Show full product without crop */
+  display: block;
+  /* Add mild drop shadow to the device image itself for depth, keeping it consistent with card feel */
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+
+/* Contact Page Layout */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.team-contact-card {
+  display: flex;
+  gap: 1rem;
+  align-items: start;
+  margin-bottom: 2rem;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+/* About Page Story Block */
+.story-block.card {
+  margin-top: 3rem;
+  background: #fff; 
+  padding: 2rem; 
+  border-radius: 12px; 
+  display: flex; 
+  align-items: center; 
+  gap: 4rem;
+}
+
+@media (max-width: 900px) {
+  .story-block.card {
+     gap: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .story-block.card {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+  
+  .story-visual img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Remove old conflicting blocks by replacing them with this consolidated section */
+
+/* Applications grid image sizing */
+.applications-grid .application-item img {
+  max-width: 70%; /* smaller than full width */
+  height: auto; /* maintain aspect ratio */
+  object-fit: contain; /* cover the area without stretching */
+  display: block; /* remove inline-block spacing issues */
+  margin: 0 auto; /* center the image */
+}
+
+/* Ensure application items are centered in their grid cells */
+.applications-grid .application-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Optional: uniform height for application items for alignment */
+.applications-grid .application-item {
+  height: 100%;
+  max-width: 300px; /* limit width on larger screens */
+  margin: 0 auto; /* center in grid */
+}
+
+/* Responsive adjustments for application grid */
+@media (max-width: 900px) {
+  .applications-grid .application-item {
+    max-width: 100%; /* full width on small screens */
+  }
+}
+
+/* TEAM SECTION STYLE
+   ========================================================================== */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .team-grid {
+    grid-template-columns: 1fr; /* Stack on mobile */
+  }
+}
+
+.team-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Circular photo frame styling */
+.member-photo-frame {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Soft shadow */
+  background-color: #f0f0f0;
+}
+
+.member-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  
+  /* Improved downscaling rendering */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality; 
+  transform: translateZ(0); /* Forces GPU composition for smoother scaling */
+  backface-visibility: hidden;
+}
+
+/* 
+.member-photo-frame:hover .member-photo {
+  transform: scale(1.05);
+}
+*/
+
+.team-member h3 {
+  margin: 0.5rem 0 0.25rem 0;
+  font-size: 1.25rem;
+  color: var(--text);
+}
+
+.member-role {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--primary); /* Use brand color for roles */
+  font-weight: 600;
+}
+
+/* Responsive adjustment for Story Block */
+@media (max-width: 600px) {
+  .story-block {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* News Section */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); /* Slightly reduced min-width for better mobile fit */
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.news-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 1rem;
+  overflow: hidden;
+  text-decoration: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid var(--border);
+  height: 100%;
+}
+
+.news-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.news-image-wrapper {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+.news-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.news-content {
+  padding: 1.25rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.news-content h3 {
+  font-size: 1.1rem;
+  margin: 0 0 1rem 0;
+  color: var(--text);
+  line-height: 1.4;
+  font-weight: 600;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.news-content .read-more {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-top: auto;
+}
+
+/* Mobile Nav Links Styling */
+@media (max-width: 768px) {
+  .nav-links a {
+    font-size: 1.25rem; /* Larger text for mobile */
+    padding: 0.75rem 1rem;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .nav-links .btn.primary {
+    width: 100%; /* Full width button on mobile */
+    justify-content: center;
+    padding: 1rem; /* Easier to tap */
+  }
+
+  /* Center link content properly on mobile */
+  .nav-links li {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* Benefit Blocks (Home) */
+.benefit-content-wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.benefit-media-wrapper {
+  width: 90%;
+  margin: 0 auto;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  background: #000;
+}
+
+.benefit-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+}
+
+.benefit-video.scale-1-1 {
+  transform: scale(1.1);
+}
+
+/* Mobile adjustments for benefits to use more screen real estate */
+@media (max-width: 600px) {
+  .benefit-content-wrapper,
+  .benefit-media-wrapper {
+    width: 100%; /* Use full width on mobile */
+  }
+}
+
+/* Base adjustment for Section Titles on Mobile */
+@media (max-width: 600px) {
+  .section-title,
+  .page-title {
+      padding: 0 1.5rem; /* Add padding to prevent titles from touching edges - adjusted to be safer */
+      box-sizing: border-box; /* Ensure padding is included in width */
+  }
+
+  .section-title h2 {
+      font-size: 1.75rem; /* Ensure titles aren't too huge on small screens */
+  }
+  
+  .section-title .section-icon {
+      height: 1.75rem; 
+  }
+  
+  /* Reduce padding on sections for mobile */
+  .section {
+      padding: 2rem 0;
+  }
+  
+  /* Adjust Orgadroid block on home for mobile */
+  .orgadroid-block.grid-2 {
+      padding: 1.5rem !important; /* Override card padding */
+      gap: 2rem;
+  }
+  
+  .orgadroid-block h2 {
+      font-size: 1.5rem;
+  }
+}
+
+/* Add extra margins for specific sections on mobile as requested */
+@media (max-width: 600px) {
+  .feature-grid,
+  .contact-layout,
+  .workflow-grid,
+  .news-grid {
+      margin-left: 1rem;
+      margin-right: 1rem;
+  }
+}
+
+

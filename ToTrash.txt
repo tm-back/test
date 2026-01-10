@@ -1,0 +1,54 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Video Minimal Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    html, body { margin:0; padding:0; height:100%; background:#000; }
+    .hero { position:relative; height:100vh; overflow:hidden; }
+    .hero video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .overlay { position:absolute; inset:0; background:rgba(0,0,0,.35); }
+    .caption { position:relative; z-index:1; color:#fff; padding:4rem 1rem; font-family:system-ui, Arial, sans-serif; }
+    .container { max-width:960px; margin:0 auto; }
+  </style>
+</head>
+<body>
+  <section class="hero" id="home">
+    <video id="heroVideo"
+      autoplay
+      muted
+      loop
+      playsinline
+      poster="assets/images/hero.jpg">
+      <source src="assets/video/hero.mp4" type=" uncomment if you also have a WebM -->
+      <!-- <ssets/video/hero.webm -->
+      Your browser does not support HTML5 video.
+    </video>
+
+    <div class="overlay" aria-hidden="true"></div>
+
+    <div class="caption">
+      <div class="container">
+        <h1>All-in-one organoid sorting. Standardized. Scalable.</h1>
+        <p>Automate classification and gentle transfer for any organoid type and size.</p>
+        <div class="cta-group" style="margin-top:1rem; display:inline-flex; gap:.75rem;">
+          <a class="btn primary" href="contact.html" style="colorprimary" href="assets/docs/application-note.pdf" target="_blank" style="colorvg" alt="" style="height:1em; vertical-align:middle; filter:invert(1ection>
+
+  <!-- TEMP: add controls to see if the video loads but autoplay is blocked -->
+  <script>
+    // Add controls if autoplay fails (useful for debugging)
+    const v = document.getElementById('heroVideo');
+    v.addEventListener('play', () => console.log('Video is playing'));
+    v.addEventListener('error', (e) => console.error('Video error', e));
+    // If not playing after 2s, try showing controls
+    setTimeout(() => {
+      if (v.paused) {
+        console.warn('Autoplay likely blocked or file not playable. Showing controls for debug.');
+        v.setAttribute('controls', 'controls');
+      }
+    }, 2000);
+  </script>
+</body>
+</html>
