@@ -65,7 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (response.ok) {
                     status.textContent = "Thanks for your message! We'll get back to you soon.";
-                    status.style.color = "green";
+                    status.style.color = "var(--primary)";
+                    status.style.fontWeight = "600";
                     contactForm.reset();
                 } else {
                     const responseData = await response.json();
