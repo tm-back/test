@@ -35,9 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.textContent = 'Sending...';
             status.textContent = ""; // Clear previous messages
             
-            // Gather data
+            // Gather data and convert to JSON
             const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData.entries());
             
+            console.log('Sending form data:', data); // Debug log
+
             // ------------------------------------------------------------------
             // CONFIGURATION:
             // 1. Go to https://formspree.io/ and create a free account.
@@ -53,8 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const response = await fetch(endpoint, {
                     method: 'POST',
-                    body: formData,
+                    body: JSON.stringify(data),
                     headers: {
+                        'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     }
                 });
@@ -64,9 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     status.style.color = "green";
                     contactForm.reset();
                 } else {
-                    const data = await response.json();
-                    if (Object.hasOwnProperty.call(data, 'errors')) {
-                        status.textContent = data["errors"].map(error => error["message"]).join(", ");
+                    const responseData = await response.json();
+                    if (Object.hasOwnProperty.call(responseData, 'errors')) {
+                        status.textContent = responseData["errors"].map(error => error["message"]).join(", ");
                     } else {
                         status.textContent = "Oops! There was a problem submitting your form";
                     }
