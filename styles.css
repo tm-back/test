@@ -30,7 +30,9 @@ body{
   display: flex;
   align-items: center;           /* vertical align logo + links */
   justify-content: space-between;
-  padding: .75rem 0;
+  padding-top: .75rem;           /* maintain vertical padding */
+  padding-bottom: .75rem;        /* maintain vertical padding */
+  /* Remove 'padding: .75rem 0' to inherit container's horizontal padding */
 }
 
 /* Mobile Nav Toggle (Hidden by default) */
@@ -106,8 +108,46 @@ body{
 
 /* Optional: unify font-weight across nav items */
 .nav-links a,
-.nav-links .btn{
+.nav-links .btn {
   font-weight: 600;
+}
+
+/* BUTTON STYLES RESTORED */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  border: 1px solid transparent;
+}
+
+/* Primary Button (Turquoise background, white text) */
+.btn.primary, 
+button[type="submit"] {
+  background-color: var(--primary);
+  color: #fff;
+  border-color: transparent;
+}
+
+.btn.primary:hover,
+button[type="submit"]:hover {
+  background-color: #00a09a; /* slightly darker turquoise for hover */
+  color: #fff;
+}
+
+/* Secondary/Outline Button */
+.btn.secondary {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+}
+.btn.secondary:hover {
+  background-color: rgba(255,255,255,0.1);
 }
 
 /* Hero Section */
@@ -1034,6 +1074,209 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
   .news-grid {
       margin-left: 1rem;
       margin-right: 1rem;
+  }
+}
+
+/* Logo adjustments for mobile */
+@media (max-width: 600px) {
+    /*
+    .nav {
+        padding: 0.75rem 1rem; 
+    }
+    */
+
+    /*
+    .logo img {
+        height: 32px; 
+        margin-left: 0.5rem; 
+    }
+    */
+}
+
+/* Mobile Nav Toggle Visibility */
+@media (max-width: 768px) {
+  .mobile-nav-toggle {
+    display: block; /* Ensure it's visible on smaller screens */
+  }
+
+  .nav-links {
+    display: none; /* Hide links by default on mobile */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    flex-direction: column;
+    padding: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-links.active {
+    display: flex; /* Show links when active */
+  }
+}
+
+/* Ensure desktop nav is layout correctly */
+@media (min-width: 769px) {
+  .nav-links {
+    display: flex;
+    position: static;
+    box-shadow: none;
+    background: transparent;
+    border: none;
+    flex-direction: row;
+    width: auto;
+    padding: 0;
+  }
+  
+  .mobile-nav-toggle {
+    display: none; /* Hide toggle on larger screens */
+  }
+}
+
+/* Applications Grid Style (similar to News but 2 per row) */
+.applications-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns on large screens */
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+/* Reuse basic news-card structure if possible, or define application-card */
+.application-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 1rem;
+  overflow: hidden;
+  text-decoration: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid var(--border);
+  height: 100%;
+}
+
+.application-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.application-image-wrapper {
+  width: 100%;
+  aspect-ratio: 4/3; /* Maintain the aspect ratio requested */
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  padding: 1rem; /* add some padding for internal images like the organoid icon */
+}
+
+.application-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; 
+}
+
+.application-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+}
+
+.application-content h3 {
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem 0;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.application-content p {
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  flex-grow: 1; /* Pushes button down if content length varies */
+}
+
+.application-content .btn {
+  align-self: flex-start; /* Do not stretch the button */
+}
+
+/* Horizontal Workflow Styling */
+.workflow-grid-horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.horizontal-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: transparent; /* Remove card bg if present */
+  box-shadow: none;
+  padding: 0;
+}
+
+.horizontal-step .workflow-image-wrapper {
+  width: 100%;
+  max-width: 250px; /* Constrain image size */
+  aspect-ratio: 1; /* Square or whatever suits the image */
+  margin-bottom: 1rem;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.horizontal-step .workflow-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.horizontal-step .workflow-content h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.horizontal-step .workflow-content p {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.workflow-arrow {
+  align-self: flex-start;
+  margin-top: 6rem; /* Roughly align with center of images */
+  font-size: 2rem;
+  color: var(--primary);
+  opacity: 0.5;
+}
+
+@media (max-width: 900px) {
+  .workflow-grid-horizontal {
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+  
+  .workflow-arrow {
+    transform: rotate(90deg); /* Point down */
+    margin-top: 0;
+    margin-left: 0;
+  }
+  
+  .horizontal-step {
+    max-width: 400px;
   }
 }
 

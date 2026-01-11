@@ -39,10 +39,16 @@
     
     <!-- Hero Video Section -->
     <div class="product-video-wrapper">
-      <video controls class="product-video" poster="assets/images/product-video-poster.jpg" id="productVideo">
-        <source src="assets/video/Orgadroid.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
+      <iframe 
+        width="100%" 
+        height="100%" 
+        src="https://www.youtube-nocookie.com/embed/S90BRHMNu0E?rel=0" 
+        title="YouTube video player" 
+        style="border:0;"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        allowfullscreen
+        class="product-video">
+      </iframe>
     </div>
 
     <!-- Section title -->
@@ -182,25 +188,24 @@
 
       </div> <!-- .feature-grid -->
 
-      <!-- Integration in your workflow section (restored) -->
+      <!-- Integration in your workflow section -->
       <section class="workflow-section">
         <div class="section-title container">
           <img src="assets/icons/title.svg" alt="" class="section-icon" />
           <h2>Workflow example</h2>
         </div>
-        <div class="workflow-grid">
-          <!-- Step 1: Top Left -->
-          <div class="workflow-step step-1">
-            <div class="workflow-image-wrapper">
-              <img src="assets/images/step1.png" alt="Mixed input batch" class="workflow-img" />
-            </div>
-            <div class="workflow-content">
-              <h3>Mixed input batch</h3>
-              <p>Heterogeneous population containing high- and low-quality organoids</p>
-            </div>
-          </div>
-          <!-- Step 2: Top Right (with two substeps) -->
-          <div class="workflow-step step-2">
+        
+        <!-- Updated Workflow Grid: Horizontal layout, steps rearranged -->
+        <!-- Removed original "Step 1: Mixed input batch" as requested. -->
+        <!-- Remaining steps: 
+             1. AI-based localization & Morphological selection (was step 2)
+             2. Pick and place (was step 3)
+             3. Traceability and reporting (was step 4)
+        -->
+        
+        <div class="workflow-grid-horizontal">
+          <!-- New Step 1 -->
+          <div class="workflow-step horizontal-step">
             <div class="workflow-image-wrapper">
               <img src="assets/images/step2.png" alt="Organoid localization and AI-based selection" class="workflow-img" />
             </div>
@@ -209,8 +214,12 @@
               <p>Automated detection within the culture plate. Quantitative assessment to classify organoids as suitable or unsuitable.</p>
             </div>
           </div>
-          <!-- Step 3: Bottom Right -->
-          <div class="workflow-step step-3">
+          
+          <!-- Arrow separator -->
+           <div class="workflow-arrow">→</div>
+
+          <!-- New Step 2 -->
+          <div class="workflow-step horizontal-step">
             <div class="workflow-image-wrapper">
               <img src="assets/images/step3.png" alt="Pick and place" class="workflow-img" />
             </div>
@@ -219,8 +228,12 @@
               <p>If the organoid is selected, it is transferred. Otherwise the system moves to the next organoid.</p>
             </div>
           </div>
-          <!-- Step 4: Bottom Left -->
-          <div class="workflow-step step-4">
+          
+           <!-- Arrow separator -->
+           <div class="workflow-arrow">→</div>
+
+          <!-- New Step 3 -->
+          <div class="workflow-step horizontal-step">
             <div class="workflow-image-wrapper">
               <img src="assets/images/step4.png" alt="Traceability and reporting" class="workflow-img" />
             </div>
@@ -234,7 +247,7 @@
 
   </main>
   
-  <!-- Applications Section (moved from main page) -->
+  <!-- Applications Section -->
   <section class="section" aria-labelledby="applications-title">
     <div class="container">
 
@@ -243,28 +256,27 @@
         <h2 id="applications-title">Applications</h2>
       </div>
 
-      <!-- Two-column grid, single row for now -->
-      <div class="grid-2 applications-grid">
-        <!-- Left column: populated item -->
-        <div class="application-item">
-          <div style="width: 100%; aspect-ratio: 4/3; overflow: hidden; border-radius: 0.75rem; background: #fff; display:flex; align-items:center; justify-content:center;">
-            <img src="assets/images/organoid.png" alt="Retinal organoids" style="width:100%; height:100%; object-fit: contain;" />
+      <!-- Updated Applications Grid: 2 columns, News-style cards -->
+      <div class="applications-grid">
+        
+        <!-- Application Item 1 -->
+        <div class="application-card">
+          <div class="application-image-wrapper">
+             <img src="assets/images/organoid.png" alt="Retinal organoids" />
           </div>
-          <h3 style="margin-top: 0.75rem;">Retinal organoids</h3>
-          <p style="margin: 0.5rem 0 1rem 0; color: var(--muted);">We published an application note with IOB on retinal organoids.</p>
-          <a href="https://share-eu1.hsforms.com/2xmhhqBuKQaG4aRNTyDjgFQ2e2clu" class="btn primary" target="_blank" rel="noopener">
-            Learn more
-            <svg class="btn-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14"></path>
-              <path d="m12 5 7 7-7 7"></path>
-            </svg>
-          </a>
+          <div class="application-content">
+            <h3>Retinal organoids</h3>
+            <p>This application note details how the Institute of Molecular and Clinical Ophtalmology Basel (IOB), a Novartis spin-off, leverages automated, image-based organoid sorting using the Orgadroid platform to support and scale retinal organoid workflows.</p>
+            <a href="https://share-eu1.hsforms.com/2xmhhqBuKQaG4aRNTyDjgFQ2e2clu" class="btn primary" target="_blank" rel="noopener">
+              Learn more
+              <svg class="btn-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
         </div>
 
-        <!-- Right column: empty placeholder (to be filled later) -->
-        <div class="application-item">
-          <!-- Reserved for future application: image + subtitle + text + button -->
-        </div>
       </div>
 
     </div>
@@ -304,45 +316,5 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
-  <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const video = document.getElementById('productVideo');
-        if (video) {
-        // Prepare a canvas to capture the frame
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-
-        // When metadata is loaded, we know dimensions and duration
-        video.addEventListener('loadedmetadata', () => {
-          // Set video to 3 seconds to capture that frame
-          video.currentTime = 3;
-        });
-
-        // Once the seek is complete to 3s, capture the frame
-        video.addEventListener('seeked', function captureFrame() {
-          // Only do this once (initial load)
-          if (video.currentTime === 3) {
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            
-            // Set the poster attribute to the data URL of the captured frame
-            video.poster = canvas.toDataURL('image/jpeg');
-            
-            // Allow the user to play from the beginning if they want, or just leave it at 3s
-            // Reset to beginning so when they click play, it starts from 0 (optional)
-            video.currentTime = 0;
-            
-            // Remove this listener so it doesn't fire on manual seeks
-            video.removeEventListener('seeked', captureFrame);
-          }
-        });
-        
-        // Force preload of metadata so we can set currentTime
-        video.preload = 'metadata';
-        }
-      });
-    </script>
 </body>
 </html>
