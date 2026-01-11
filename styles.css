@@ -1209,75 +1209,56 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
 
 /* Horizontal Workflow Styling */
 .workflow-grid-horizontal {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
+  /* Inherits grid properties from feature-grid three-col-grid now */
   margin-top: 2rem;
+  /* Override default grid gap if needed, but feature-grid gap is good */
 }
 
+/* Ensure the steps take up the full cell */
 .horizontal-step {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background: transparent; /* Remove card bg if present */
-  box-shadow: none;
-  padding: 0;
+  /* Scale down contents to fit nicely */
+  width: 100%; 
 }
 
 .horizontal-step .workflow-image-wrapper {
-  width: 100%;
-  max-width: 250px; /* Constrain image size */
-  aspect-ratio: 1; /* Square or whatever suits the image */
-  margin-bottom: 1rem;
-  display:flex;
+  width: 100%; 
+  /* Reduce max-width to "scale down" the visual impact while filling the column width-wise */
+  max-width: 60%; /* Reduced from 100% to 60% to make images smaller */
+  margin: 0 auto 1rem auto; /* Center the image wrapper */
+  aspect-ratio: 4/3; /* Consistent rectangular shape */
+  display: flex;
   align-items: center;
   justify-content: center;
+  background-color: transparent; /* Or keep dark if desired */
+  border-radius: 0.5rem; /* Soften edges */
+  overflow: hidden;
 }
 
 .horizontal-step .workflow-img {
   width: 100%;
-  height: auto;
-  object-fit: contain;
+  height: 100%;
+  object-fit: contain; /* Ensure the whole 'arrow box' image is visible */
+}
+
+.horizontal-step .workflow-content {
+  max-width: 80%; /* Reduce text width */
+  margin: 0 auto; /* Center the text block */
 }
 
 .horizontal-step .workflow-content h3 {
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
+  color: #ffffff; /* White text */
+  font-weight: 700; /* Bold title */
 }
 
 .horizontal-step .workflow-content p {
   font-size: 0.95rem;
-  color: var(--muted);
-}
-
-.workflow-arrow {
-  align-self: flex-start;
-  margin-top: 6rem; /* Roughly align with center of images */
-  font-size: 2rem;
-  color: var(--primary);
-  opacity: 0.5;
-}
-
-@media (max-width: 900px) {
-  .workflow-grid-horizontal {
-    flex-direction: column;
-    align-items: center;
-    gap: 3rem;
-  }
-  
-  .workflow-arrow {
-    transform: rotate(90deg); /* Point down */
-    margin-top: 0;
-    margin-left: 0;
-  }
-  
-  .horizontal-step {
-    max-width: 400px;
-  }
+  color: #ffffff; /* White text */
 }
 
 
