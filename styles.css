@@ -405,47 +405,42 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
 .workflow-step.step-3 { grid-column: 2; grid-row: 2; }
 .workflow-step.step-4 { grid-column: 1; grid-row: 2; }
 
-/* Remove rectangular bars and use directional triangles for arrows */
+/* Remove rectangular bars and use directional triangles for arrows - REMOVED per request */
 .workflow-grid::before,
 .workflow-grid::after,
 .workflow-step.step-3::before {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  background: transparent;
+  display: none;
 }
 
 /* Triangle 1: Step 1 -> Step 2 (Right) */
-.workflow-grid::before {
-  top: 25%; /* Adjusted vertical alignment */
+/* .workflow-grid::before {
+  top: 25%; /* Adjusted vertical alignment 
   left: 50%;
-  transform: translate(-50%, -50%); /* Centered horizontally between columns */
-  border-width: 20px 0 20px 35px; /* INCREASED: Larger arrow size */
-  border-color: transparent transparent transparent var(--primary); /* CHANGED: Turquoise color */
+  transform: translate(-50%, -50%); /* Centered horizontally between columns 
+  border-width: 20px 0 20px 35px; /* INCREASED: Larger arrow size 
+  border-color: transparent transparent transparent var(--primary); /* CHANGED: Turquoise color 
   z-index: 10;
-}
+} */
 
 /* Triangle 2: Step 2 -> Step 3 (Down) */
-.workflow-grid::after {
+/* .workflow-grid::after {
   top: 50%;
-  right: 25%; /* Centered vertically between rows */
+  right: 25%; /* Centered vertically between rows 
   transform: translate(50%, -50%);
-  border-width: 35px 20px 0 20px; /* INCREASED: Larger arrow size */
-  border-color: var(--primary) transparent transparent transparent; /* CHANGED: Turquoise color */
+  border-width: 35px 20px 0 20px; /* INCREASED: Larger arrow size 
+  border-color: var(--primary) transparent transparent transparent; /* CHANGED: Turquoise color 
   z-index: 10;
-}
+} */
 
 /* Triangle 3: Step 3 -> Step 4 (Left) */
-.workflow-step.step-3::before {
+/* .workflow-step.step-3::before {
   top: 40%;
-  left: -4rem; /* Adjusted horizontal position for wider gap */
+  left: -4rem; /* Adjusted horizontal position for wider gap 
   transform: translateX(-50%);
-  border-width: 20px 35px 20px 0; /* INCREASED: Larger arrow size */
-  border-color: transparent var(--primary) transparent transparent; /* CHANGED: Turquoise color */
+  border-width: 20px 35px 20px 0; /* INCREASED: Larger arrow size 
+  border-color: transparent var(--primary) transparent transparent; /* CHANGED: Turquoise color 
   z-index: 10;
-}
+} */
 
 .workflow-image-wrapper {
   background-color: #212B46; /* Matches section bg */
@@ -501,6 +496,134 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
   position: relative;
 }
 
+/* Specific adjustment for Workflow Grid to reduce gap between steps */
+.workflow-grid-horizontal.feature-grid {
+  /* Inherit feature-grid standard margins but override gap */
+  gap: 1.5rem; /* Reduced from default grid gap */
+}
+
+/* Base styles for horizontal steps */
+.horizontal-step {
+  display: flex;
+  flex-direction: column;
+  width: 100%; 
+  /* Default alignment (will be overridden for first/last) */
+  align-items: center; 
+  text-align: center;
+}
+
+.horizontal-step .workflow-image-wrapper {
+  width: 100%; 
+  max-width: 60%; /* Small images */
+  /* Remove generic auto margins to allow flex alignment control */
+  margin-bottom: 1rem; 
+  
+  aspect-ratio: 4/3; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent; 
+  border-radius: 0.5rem; 
+  overflow: hidden;
+}
+
+.horizontal-step .workflow-content {
+  max-width: 60%; 
+  /* Remove generic auto margins */
+}
+
+/* Step 1: Align LEFT to match grid usage */
+.horizontal-step:first-child {
+  /* Previously flex-start */
+  /* We want the CONTENT (image, text) to move towards the center of the step, 
+     but the step itself is in the left grid column. 
+     If the user wants empty space on the LEFT, we actually want to clean this up.
+     
+     Wait, re-reading: "aligned the wrong sides... I would like the left side of the first step to be aligned with the left side of the grid, to leave a blank margin to the left of the left step"
+     
+     Currently `align-items: flex-start` DOES align the left side of the item to the left side of the grid column.
+     The grid column starts exactly where the margin ends.
+     
+     Maybe the user means they saw the previous version (centered in column) and liked that it had space on the left?
+     
+     If I Center the first step in its column, there will be space on its left.
+     If I Left-Align the first step in its column, it touches the grid start line (minimal internal margin).
+     
+     If the user says "I would like the left side of the first step to be aligned with the left side of the grid" -> this is what I did (flex-start).
+     
+     "to leave a blank margin to the left of the left step" -> If it is aligned to the grid, there IS the page margin.
+     
+     Perhaps the user means they want the content to be CENTERED within the grid column, which creates empty space on both sides of the content within that column, effectively increasing the perceived margin.
+     
+     Let's revert strictly to "Center everything" inside the columns. 
+     The columns themselves respect the page margins. 
+     If the content is centered in the first column, there is (ColumnWidth - ContentWidth)/2 space on the left.
+  */
+  align-items: center;
+  text-align: center;
+}
+/* Step 2: Align CENTER (Default) */
+.horizontal-step:nth-child(2) {
+  align-items: center;
+  text-align: center;
+}
+/* Step 3: Align RIGHT to match grid usage */
+.horizontal-step:last-child {
+  /* Revert to center as well */
+  align-items: center;
+  text-align: center;
+}
+
+/* Ensure centering is applied uniformly */
+.horizontal-step .workflow-image-wrapper,
+.horizontal-step .workflow-content {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Ensure text is nicely aligned inside the blocks */
+.horizontal-step:first-child .workflow-image-wrapper,
+.horizontal-step:first-child .workflow-content {
+  margin-left: 0;
+  margin-right: auto; /* Just to be safe */
+}
+
+.horizontal-step:nth-child(2) .workflow-image-wrapper,
+.horizontal-step:nth-child(2) .workflow-content {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.horizontal-step:last-child .workflow-image-wrapper,
+.horizontal-step:last-child .workflow-content {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/* Ensure centering on mobile - Override the specific alignments */
+@media (max-width: 600px) {
+    .workflow-grid-horizontal.feature-grid {
+        gap: 3rem; 
+    }
+    .horizontal-step .workflow-content {
+        max-width: 90%; 
+    }
+    
+    /* Force center everything on mobile stack */
+    .horizontal-step,
+    .horizontal-step:first-child,
+    .horizontal-step:last-child {
+      align-items: center;
+      text-align: center;
+    }
+    
+    .horizontal-step .workflow-image-wrapper, 
+    .horizontal-step .workflow-content {
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+}
+
 /* Responsive adjustments */
 @media (max-width: 1024px) {
   .product-layout-grid {
@@ -539,18 +662,9 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
     display: none;
   }
   
-  /* Add simple downward triangles for mobile stack */
+  /* Add simple downward triangles for mobile stack - REMOVED per request */
   .workflow-step:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    bottom: -3rem; /* Center in gap */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0; 
-    height: 0; 
-    border-style: solid;
-    border-width: 25px 15px 0 15px; /* Slightly larger on mobile too */
-    border-color: var(--primary) transparent transparent transparent; /* Turquoise here too */
+    display: none;
   }
   
   .workflow-image-wrapper {
@@ -1245,20 +1359,100 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
 }
 
 .horizontal-step .workflow-content {
-  max-width: 80%; /* Reduce text width */
+  max-width: 60%; /* Reduced from 80% to 60% as requested */
   margin: 0 auto; /* Center the text block */
 }
 
-.horizontal-step .workflow-content h3 {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-  color: #ffffff; /* White text */
-  font-weight: 700; /* Bold title */
+/* Step 1: Align LEFT to match grid usage */
+.horizontal-step:first-child {
+  /* Previously flex-start */
+  /* We want the CONTENT (image, text) to move towards the center of the step, 
+     but the step itself is in the left grid column. 
+     If the user wants empty space on the LEFT, we actually want to clean this up.
+     
+     Wait, re-reading: "aligned the wrong sides... I would like the left side of the first step to be aligned with the left side of the grid, to leave a blank margin to the left of the left step"
+     
+     Currently `align-items: flex-start` DOES align the left side of the item to the left side of the grid column.
+     The grid column starts exactly where the margin ends.
+     
+     Maybe the user means they saw the previous version (centered in column) and liked that it had space on the left?
+     
+     If I Center the first step in its column, there will be space on its left.
+     If I Left-Align the first step in its column, it touches the grid start line (minimal internal margin).
+     
+     If the user says "I would like the left side of the first step to be aligned with the left side of the grid" -> this is what I did (flex-start).
+     
+     "to leave a blank margin to the left of the left step" -> If it is aligned to the grid, there IS the page margin.
+     
+     Perhaps the user means they want the content to be CENTERED within the grid column, which creates empty space on both sides of the content within that column, effectively increasing the perceived margin.
+     
+     Let's revert strictly to "Center everything" inside the columns. 
+     The columns themselves respect the page margins. 
+     If the content is centered in the first column, there is (ColumnWidth - ContentWidth)/2 space on the left.
+  */
+  align-items: center;
+  text-align: center;
+}
+/* Step 2: Align CENTER (Default) */
+.horizontal-step:nth-child(2) {
+  align-items: center;
+  text-align: center;
+}
+/* Step 3: Align RIGHT to match grid usage */
+.horizontal-step:last-child {
+  /* Revert to center as well */
+  align-items: center;
+  text-align: center;
 }
 
-.horizontal-step .workflow-content p {
-  font-size: 0.95rem;
-  color: #ffffff; /* White text */
+/* Ensure centering is applied uniformly */
+.horizontal-step .workflow-image-wrapper,
+.horizontal-step .workflow-content {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Ensure text is nicely aligned inside the blocks */
+.horizontal-step:first-child .workflow-image-wrapper,
+.horizontal-step:first-child .workflow-content {
+  margin-left: 0;
+  margin-right: auto; /* Just to be safe */
+}
+
+.horizontal-step:nth-child(2) .workflow-image-wrapper,
+.horizontal-step:nth-child(2) .workflow-content {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.horizontal-step:last-child .workflow-image-wrapper,
+.horizontal-step:last-child .workflow-content {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/* Ensure centering on mobile - Override the specific alignments */
+@media (max-width: 600px) {
+    .workflow-grid-horizontal.feature-grid {
+        gap: 3rem; 
+    }
+    .horizontal-step .workflow-content {
+        max-width: 90%; 
+    }
+    
+    /* Force center everything on mobile stack */
+    .horizontal-step,
+    .horizontal-step:first-child,
+    .horizontal-step:last-child {
+      align-items: center;
+      text-align: center;
+    }
+    
+    .horizontal-step .workflow-image-wrapper, 
+    .horizontal-step .workflow-content {
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
 }
 
 
