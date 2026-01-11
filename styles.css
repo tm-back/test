@@ -945,6 +945,12 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
   }
 }
 
+@media (max-width: 768px) {
+  .applications-grid {
+    grid-template-columns: 1fr; /* 1 column on mobile/tablet */
+  }
+}
+
 /* TEAM SECTION STYLE
    ========================================================================== */
 .team-grid {
@@ -1255,6 +1261,12 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
   grid-template-columns: repeat(2, 1fr); /* 2 columns on large screens */
   gap: 2rem;
   margin-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .applications-grid {
+    grid-template-columns: 1fr; /* 1 column on mobile/tablet */
+  }
 }
 
 /* Reuse basic news-card structure if possible, or define application-card */
