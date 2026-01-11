@@ -976,6 +976,84 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
   }
 }
 
+/* Applications Grid Style (similar to News but 2 per row) */
+.applications-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns on large screens */
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .applications-grid {
+    grid-template-columns: 1fr; /* 1 column on mobile/tablet */
+  }
+}
+
+/* Reuse basic news-card structure if possible, or define application-card */
+.application-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 1rem;
+  overflow: hidden;
+  text-decoration: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid var(--border);
+  height: 100%;
+}
+
+.application-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.application-image-wrapper {
+  width: 100%;
+  aspect-ratio: 4/3; /* Maintain the aspect ratio requested */
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  padding: 1rem; /* add some padding for internal images like the organoid icon */
+}
+
+.application-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; 
+}
+
+.application-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+}
+
+.application-content h3 {
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem 0;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.application-content p {
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  flex-grow: 1; /* Pushes button down if content length varies */
+}
+
+.application-content .btn {
+  align-self: flex-start; /* Do not stretch the button */
+}
+
 /* TEAM SECTION STYLE
    ========================================================================== */
 .team-grid {
@@ -1123,7 +1201,7 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
 }
 
 /* Mobile Nav Links Styling */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .nav-links a {
     font-size: 1.25rem; /* Larger text for mobile */
     padding: 0.75rem 1rem;
@@ -1197,7 +1275,8 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
   
   /* Reduce padding on sections for mobile */
   .section {
-      padding: 2rem 0;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
   }
   
   /* Adjust Orgadroid block on home for mobile */
@@ -1241,7 +1320,7 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
 }
 
 /* Mobile Nav Toggle Visibility */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .mobile-nav-toggle {
     display: block; /* Ensure it's visible on smaller screens */
   }
@@ -1265,7 +1344,7 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
 }
 
 /* Ensure desktop nav is layout correctly */
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
   .nav-links {
     display: flex;
     position: static;
@@ -1280,218 +1359,6 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
   .mobile-nav-toggle {
     display: none; /* Hide toggle on larger screens */
   }
-}
-
-/* Applications Grid Style (similar to News but 2 per row) */
-.applications-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columns on large screens */
-  gap: 2rem;
-  margin-top: 1.5rem;
-}
-
-@media (max-width: 768px) {
-  .applications-grid {
-    grid-template-columns: 1fr; /* 1 column on mobile/tablet */
-  }
-}
-
-/* Reuse basic news-card structure if possible, or define application-card */
-.application-card {
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  border-radius: 1rem;
-  overflow: hidden;
-  text-decoration: none;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-  transition: transform 0.2s, box-shadow 0.2s;
-  border: 1px solid var(--border);
-  height: 100%;
-}
-
-.application-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-}
-
-.application-image-wrapper {
-  width: 100%;
-  aspect-ratio: 4/3; /* Maintain the aspect ratio requested */
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border-bottom: 1px solid var(--border);
-  padding: 1rem; /* add some padding for internal images like the organoid icon */
-}
-
-.application-image-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; 
-}
-
-.application-content {
-  padding: 1.5rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  /* justify-content: space-between; */
-}
-
-.application-content h3 {
-  font-size: 1.25rem;
-  margin: 0 0 0.5rem 0;
-  color: var(--text);
-  font-weight: 600;
-}
-
-.application-content p {
-  color: var(--muted);
-  line-height: 1.6;
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-  flex-grow: 1; /* Pushes button down if content length varies */
-}
-
-.application-content .btn {
-  align-self: flex-start; /* Do not stretch the button */
-}
-
-/* Horizontal Workflow Styling */
-.workflow-grid-horizontal {
-  /* Inherits grid properties from feature-grid three-col-grid now */
-  margin-top: 2rem;
-  /* Override default grid gap if needed, but feature-grid gap is good */
-}
-
-/* Ensure the steps take up the full cell */
-.horizontal-step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  /* Scale down contents to fit nicely */
-  width: 100%; 
-}
-
-.horizontal-step .workflow-image-wrapper {
-  width: 100%; 
-  /* Reduce max-width to "scale down" the visual impact while filling the column width-wise */
-  max-width: 60%; /* Reduced from 100% to 60% to make images smaller */
-  margin: 0 auto 1rem auto; /* Center the image wrapper */
-  aspect-ratio: 4/3; /* Consistent rectangular shape */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent; /* Or keep dark if desired */
-  border-radius: 0.5rem; /* Soften edges */
-  overflow: hidden;
-}
-
-.horizontal-step .workflow-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* Ensure the whole 'arrow box' image is visible */
-}
-
-.horizontal-step .workflow-content {
-  max-width: 60%; /* Reduced from 80% to 60% as requested */
-  margin: 0 auto; /* Center the text block */
-}
-
-/* Step 1: Align LEFT to match grid usage */
-.horizontal-step:first-child {
-  /* Previously flex-start */
-  /* We want the CONTENT (image, text) to move towards the center of the step, 
-     but the step itself is in the left grid column. 
-     If the user wants empty space on the LEFT, we actually want to clean this up.
-     
-     Wait, re-reading: "aligned the wrong sides... I would like the left side of the first step to be aligned with the left side of the grid, to leave a blank margin to the left of the left step"
-     
-     Currently `align-items: flex-start` DOES align the left side of the item to the left side of the grid column.
-     The grid column starts exactly where the margin ends.
-     
-     Maybe the user means they saw the previous version (centered in column) and liked that it had space on the left?
-     
-     If I Center the first step in its column, there will be space on its left.
-     If I Left-Align the first step in its column, it touches the grid start line (minimal internal margin).
-     
-     If the user says "I would like the left side of the first step to be aligned with the left side of the grid" -> this is what I did (flex-start).
-     
-     "to leave a blank margin to the left of the left step" -> If it is aligned to the grid, there IS the page margin.
-     
-     Perhaps the user means they want the content to be CENTERED within the grid column, which creates empty space on both sides of the content within that column, effectively increasing the perceived margin.
-     
-     Let's revert strictly to "Center everything" inside the columns. 
-     The columns themselves respect the page margins. 
-     If the content is centered in the first column, there is (ColumnWidth - ContentWidth)/2 space on the left.
-  */
-  align-items: center;
-  text-align: center;
-}
-/* Step 2: Align CENTER (Default) */
-.horizontal-step:nth-child(2) {
-  align-items: center;
-  text-align: center;
-}
-/* Step 3: Align RIGHT to match grid usage */
-.horizontal-step:last-child {
-  /* Revert to center as well */
-  align-items: center;
-  text-align: center;
-}
-
-/* Ensure centering is applied uniformly */
-.horizontal-step .workflow-image-wrapper,
-.horizontal-step .workflow-content {
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-
-/* Ensure text is nicely aligned inside the blocks */
-.horizontal-step:first-child .workflow-image-wrapper,
-.horizontal-step:first-child .workflow-content {
-  margin-left: 0;
-  margin-right: auto; /* Just to be safe */
-}
-
-.horizontal-step:nth-child(2) .workflow-image-wrapper,
-.horizontal-step:nth-child(2) .workflow-content {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.horizontal-step:last-child .workflow-image-wrapper,
-.horizontal-step:last-child .workflow-content {
-  margin-left: auto;
-  margin-right: 0;
-}
-
-/* Ensure centering on mobile - Override the specific alignments */
-@media (max-width: 600px) {
-    .workflow-grid-horizontal.feature-grid {
-        gap: 3rem; 
-    }
-    .horizontal-step .workflow-content {
-        max-width: 90%; 
-    }
-    
-    /* Force center everything on mobile stack */
-    .horizontal-step,
-    .horizontal-step:first-child,
-    .horizontal-step:last-child {
-      align-items: center;
-      text-align: center;
-    }
-    
-    .horizontal-step .workflow-image-wrapper, 
-    .horizontal-step .workflow-content {
-      margin-left: auto !important;
-      margin-right: auto !important;
-    }
 }
 
 
