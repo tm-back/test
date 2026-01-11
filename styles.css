@@ -16,6 +16,15 @@ body{
   background:var(--bg)
 }
 .container{max-width:1200px;margin:0 auto;padding:0 1.25rem}
+
+/* Ensure padding on intermediate screens (tablets) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
 .site-header{
 
   position: sticky;
@@ -161,7 +170,11 @@ button[type="submit"]:hover {
 .hero .btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 16px;line-height:1;font-weight:600;border-radius:.5rem}
 .hero .btn .icon{width:20px;height:20px;vertical-align:middle;margin-right:.5rem;flex:0 0 auto}
 .hero .caption .container{max-width:1000px;margin:0 auto;padding:0 1.25rem}
-.section{padding:2.5rem 0}
+.section {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    /* Removed shorthand 'padding: 2.5rem 0' to avoid resetting container's horizontal padding */
+}
 .card{background:var(--card);border:1px solid rgba(0,0,0,0);border-radius:1rem;padding:1.25rem}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;align-items:center}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
@@ -366,6 +379,18 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
   width: 100vw; /* span full viewport width */
   margin-left: calc(50% - 50vw); /* pull to left edge from centered container */
   margin-right: calc(50% - 50vw); /* pull to right edge */
+  
+  /* Ensure content inside doesn't touch edges on tablets/mobile */
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  box-sizing: border-box; /* Include padding in width */
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .workflow-section {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
 
 .workflow-section .section-title {
@@ -1186,8 +1211,9 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
   }
 }
 
-/* Add extra margins for specific sections on mobile as requested */
+/* Commenting out redundant margin application since padding is fixed at .container level */
 @media (max-width: 600px) {
+  /*
   .feature-grid,
   .contact-layout,
   .workflow-grid,
@@ -1195,6 +1221,7 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
       margin-left: 1rem;
       margin-right: 1rem;
   }
+  */
 }
 
 /* Logo adjustments for mobile */
