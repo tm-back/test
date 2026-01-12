@@ -377,38 +377,29 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
   padding: 4rem 0;
   margin-top: 3rem;
   width: 100vw; /* span full viewport width */
-  margin-left: calc(50% - 50vw); /* pull to left edge from centered container */
-  margin-right: calc(50% - 50vw); /* pull to right edge */
-  
-  /* Ensure content inside doesn't touch edges on tablets/mobile */
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
+  margin-left: calc(50% - 50vw); /* force full width even inside container if needed, though this section is likely top level */
+  margin-right: calc(50% - 50vw);
   box-sizing: border-box; /* Include padding in width */
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
-  .workflow-section {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
+/* Ensure the inner container respects max-width and centering */
+.workflow-section .container {
+  /* inherit max-width: 1200px from generic .container */
+  /* inherit margin: 0 auto from generic .container */
+  /* But we need to ensure local padding does not double up if relying on .section + .container logic */
+  display: block;
 }
 
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* The .container media query already handles padding, no need to duplicate here explicitly unless overriding */
+}
+
+/* Adjust section title inside workflow to not double-pad if it was using .container before */
 .workflow-section .section-title {
   display: flex;
   align-items: center; /* vertically center icon + text */
   gap: 0.5rem;
-  padding: 0 1.25rem; /* horizontal padding to match container gutters */
-}
-
-.workflow-section .section-title .section-icon {
-  height: 2rem; /* fix icon height for consistent alignment */
-  width: auto;
-}
-
-.workflow-section .section-title h2 {
-  color: #fff;
-  margin: 0;
-  line-height: 1.1; /* tighten line-height to align with icon */
+  /* Removed local padding that was compensating for lack of .container wrapper */
 }
 
 .workflow-section .workflow-grid {
