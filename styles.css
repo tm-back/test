@@ -1,16 +1,13 @@
-/* Website: visienco.ch (owner-provided) */
-/* Visienco-style skeleton — neutral, commented CSS to help you understand structure */
+/* Website: visienco.ch */
 :root{
   --text:#0f172a; --muted:#475569; --bg:#ffffff; --bg-soft:#F5F5F0; --primary:#00BFB8; --border:#e2e8f0; --card:#ffffff;
-  --hero-height:68vh; --overlay:0.65; /* Increased overlay for darker tint */
-  /* Modern light gray that pairs well with turquoise */
+  --hero-height:68vh; --overlay:0.65;
   --card-soft: #F4F7F6;
 }
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0;
-  /* Prioritize Segoe UI as requested, keeping Inter and others as backups */
   font-family: 'Segoe UI', Inter, system-ui, -apple-system, Roboto, Ubuntu, 'Helvetica Neue', Arial, sans-serif;
   color:var(--text);
   background:var(--bg)
@@ -179,12 +176,12 @@ button[type="submit"]:hover {
 .section {
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
-    /* Removed shorthand 'padding: 2.5rem 0' to avoid resetting container's horizontal padding */
 }
 .card{background:var(--card);border:1px solid rgba(0,0,0,0);border-radius:1rem;padding:1.25rem}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;align-items:center}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
 .feature-list{display:grid;gap:.5rem;padding-left:1rem}
+
 /* Footer Section */
 .site-footer{background:#fff;padding:3rem 0;border-top:1px solid var(--border);margin-top:auto;}
 
@@ -221,18 +218,13 @@ button[type="submit"]:hover {
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s;
+  font-size: 1.25rem; 
 }
 
 .footer-email:hover {
   color: var(--primary);
 }
 
-/* Ensure the text stays aligned with the larger icon */
-.footer-email {
-    font-size: 1.25rem; 
-}
-
-/* Target all text in footer to be black, normal weight, same size */
 .site-footer p, 
 .site-footer a, 
 .site-footer span,
@@ -245,12 +237,10 @@ button[type="submit"]:hover {
     line-height: 1.5;
 }
 
-/* Specific styling for copyright/year to match */
 .footer-left p {
     margin-bottom: 0.5rem;
 }
 
-/* Links container */
 .footer-links {
     display:flex; 
     gap:1rem;
@@ -317,7 +307,6 @@ button[type="submit"]:hover {
     }
 }
 
-/* Page Titles (Non-Hero) */
 .page-title {
    font-size: clamp(2rem, 5vw, 2.5rem);
    margin-bottom: 2rem;
@@ -365,15 +354,10 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
   max-width: 65ch; /* Optimal line length for readability */
 }
 
-/* Remove old specific selectors if they exist to avoid conflict - consolidated above */
-/* .orgadroid-block h2 {font-size: clamp(1.5rem, 2.5vw, 1.8rem); font-weight: 600; margin-bottom: 1rem;color: var(--text);} */
-/* .orgadroid-block p {font-size: clamp(1rem, 2.2vw, 1.25rem); line-height: 1.6; color: var(--muted);} */
-
 .section-title {
   display: flex;
   align-items: center; 
   gap: 0.5rem;   
-  /* Moved spacing here for proper icon alignment */
   margin-top: 3.5rem;
   margin-bottom: 2.5rem;
 }
@@ -448,36 +432,6 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
 .workflow-step.step-3::before {
   display: none;
 }
-
-/* Triangle 1: Step 1 -> Step 2 (Right) */
-/* .workflow-grid::before {
-  top: 25%; /* Adjusted vertical alignment 
-  left: 50%;
-  transform: translate(-50%, -50%); /* Centered horizontally between columns 
-  border-width: 20px 0 20px 35px; /* INCREASED: Larger arrow size 
-  border-color: transparent transparent transparent var(--primary); /* CHANGED: Turquoise color 
-  z-index: 10;
-} */
-
-/* Triangle 2: Step 2 -> Step 3 (Down) */
-/* .workflow-grid::after {
-  top: 50%;
-  right: 25%; /* Centered vertically between rows 
-  transform: translate(50%, -50%);
-  border-width: 35px 20px 0 20px; /* INCREASED: Larger arrow size 
-  border-color: var(--primary) transparent transparent transparent; /* CHANGED: Turquoise color 
-  z-index: 10;
-} */
-
-/* Triangle 3: Step 3 -> Step 4 (Left) */
-/* .workflow-step.step-3::before {
-  top: 40%;
-  left: -4rem; /* Adjusted horizontal position for wider gap 
-  transform: translateX(-50%);
-  border-width: 20px 35px 20px 0; /* INCREASED: Larger arrow size 
-  border-color: transparent var(--primary) transparent transparent; /* CHANGED: Turquoise color 
-  z-index: 10;
-} */
 
 .workflow-image-wrapper {
   background-color: #212B46; /* Matches section bg */
@@ -571,31 +525,6 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
 
 /* Step 1: Align LEFT to match grid usage */
 .horizontal-step:first-child {
-  /* Previously flex-start */
-  /* We want the CONTENT (image, text) to move towards the center of the step, 
-     but the step itself is in the left grid column. 
-     If the user wants empty space on the LEFT, we actually want to clean this up.
-     
-     Wait, re-reading: "aligned the wrong sides... I would like the left side of the first step to be aligned with the left side of the grid, to leave a blank margin to the left of the left step"
-     
-     Currently `align-items: flex-start` DOES align the left side of the item to the left side of the grid column.
-     The grid column starts exactly where the margin ends.
-     
-     Maybe the user means they saw the previous version (centered in column) and liked that it had space on the left?
-     
-     If I Center the first step in its column, there will be space on its left.
-     If I Left-Align the first step in its column, it touches the grid start line (minimal internal margin).
-     
-     If the user says "I would like the left side of the first step to be aligned with the left side of the grid" -> this is what I did (flex-start).
-     
-     "to leave a blank margin to the left of the left step" -> If it is aligned to the grid, there IS the page margin.
-     
-     Perhaps the user means they want the content to be CENTERED within the grid column, which creates empty space on both sides of the content within that column, effectively increasing the perceived margin.
-     
-     Let's revert strictly to "Center everything" inside the columns. 
-     The columns themselves respect the page margins. 
-     If the content is centered in the first column, there is (ColumnWidth - ContentWidth)/2 space on the left.
-  */
   align-items: center;
   text-align: center;
 }
@@ -1122,12 +1051,6 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
   backface-visibility: hidden;
 }
 
-/* 
-.member-photo-frame:hover .member-photo {
-  transform: scale(1.05);
-}
-*/
-
 .team-member h3 {
   margin: 0.5rem 0 0.25rem 0;
   font-size: 1.25rem;
@@ -1310,33 +1233,8 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
   }
 }
 
-/* Commenting out redundant margin application since padding is fixed at .container level */
-@media (max-width: 600px) {
-  /*
-  .feature-grid,
-  .contact-layout,
-  .workflow-grid,
-  .news-grid {
-      margin-left: 1rem;
-      margin-right: 1rem;
-  }
-  */
-}
-
 /* Logo adjustments for mobile */
 @media (max-width: 600px) {
-    /*
-    .nav {
-        padding: 0.75rem 1rem; 
-    }
-    */
-
-    /*
-    .logo img {
-        height: 32px; 
-        margin-left: 0.5rem; 
-    }
-    */
 }
 
 /* Mobile Nav Toggle Visibility */
