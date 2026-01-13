@@ -106,6 +106,11 @@ body{
   padding: 0;
 }
 
+/* Nav Link Hover Color */
+.nav-links a:hover {
+  color: var(--primary);
+}
+
 .nav-links a{
   color: var(--text);
   text-decoration: none;
@@ -113,6 +118,7 @@ body{
   border-radius: .5rem;
   line-height: 1;                /* keep consistent height */
   font-weight: 500;              /* Added to match "boldness" */
+  transition: color 0.2s ease;   /* Smooth transition */
 }
 
 /* Optional: unify font-weight across nav items */
@@ -317,6 +323,9 @@ button[type="submit"]:hover {
    margin-bottom: 2rem;
    text-align: left;
    font-weight: 700;
+   margin-top: 0;           /* Reset top margin */
+   padding-top: 0;          /* Reset top padding */
+   line-height: 1.2;        /* Ensure tight line height */
 }
 
 /* Hero container remains the same */
@@ -360,10 +369,22 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
 /* .orgadroid-block h2 {font-size: clamp(1.5rem, 2.5vw, 1.8rem); font-weight: 600; margin-bottom: 1rem;color: var(--text);} */
 /* .orgadroid-block p {font-size: clamp(1rem, 2.2vw, 1.25rem); line-height: 1.6; color: var(--muted);} */
 
-.section-title {display: flex;align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+.section-title {
+  display: flex;
+  align-items: center; 
+  gap: 0.5rem;   
+  /* Moved spacing here for proper icon alignment */
+  margin-top: 3.5rem;
+  margin-bottom: 2.5rem;
+}
 
-/* Default: section titles on white backgrounds should be black */
-.section-title h2 {font-size: clamp(1.8rem, 3.2vw, 2.4rem);font-weight: 700; margin: 0;color: var(--text);}
+.section-title h2 {
+  font-size: clamp(1.8rem, 3.2vw, 2.4rem); /* Ensure size is preserved */
+  font-weight: 700;
+  margin: 0;
+  color: var(--text);
+  line-height: 1.2;
+}
 
 /* Keep turquoise icon next to the title (SVG/IMG is already turquoise asset) */
 .section-title .section-icon {width: auto;  height: clamp(1.8rem, 3.2vw, 2.4rem);display: inline-block;}
@@ -850,6 +871,14 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
   padding-left: 0; /* Removed bullet indentation */
   list-style: none; /* Removed bullets */
 }
+
+/* Ensure spacing between list items happens here if not overridden */
+.feature-card ul {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important; /* Forces spacing between list items */
+}
+
 .feature-card p { padding-left: 0; }
 
 /* 6. Special Case: Orgadroid Image Card */
@@ -1353,3 +1382,47 @@ h1, h2, h3, h4, h5, h6, .section-title h2 {
 }
 
 
+.cta-banner {
+  background-color: #212B46; /* Visienco Dark Blue */
+  color: #ffffff;
+  border-radius: 1rem;
+  padding: 2.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  width: 100%;
+}
+
+.cta-banner h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Responsive adjustment for mobile */
+@media (max-width: 600px) {
+  .cta-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* Features Grid & Card Styles */
+.feature-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.5rem !important; /* Forces spacing between list items */
+}
+
+/* Center list items horizontally in the feature card */
+.feature-card li {
+  text-align: center;
+}
